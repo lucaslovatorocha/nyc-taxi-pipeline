@@ -242,21 +242,12 @@ notebooks/05_data_validation.py
 - Degradação de performance
 - Problemas de qualidade de dados
 
-## 🤝 Contribuição
-
-### **Próximas Melhorias**
-- [ ] Implementação de Delta Live Tables
-- [ ] Integração com Tableau/Power BI
-- [ ] Otimização com Z-ORDER automático
-- [ ] Implementação de CDC (Change Data Capture)
-- [ ] Expansão para outros datasets NYC
-
 ## 👨‍💻 Autor
 
 **Lucas Lovato**
 - 📧 Email: lucaslovatotech@gmail.com
-- 💼 LinkedIn: [lucas-lovato](https://linkedin.com/in/lucas-lovato)
-- 🐙 GitHub: [lucaslovato](https://github.com/lucaslovato)
+- 💼 LinkedIn: [lucas-lovato](https://www.linkedin.com/in/lucas-lovato-b22766239)
+- 🐙 GitHub: [lucaslovato](https://github.com/lucaslovatorocha)
 
 ## 📄 Licença
 
