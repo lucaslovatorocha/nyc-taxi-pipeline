@@ -245,20 +245,3 @@ spark_configs = {
 | Aggregation | 0.8s | 2.1s |
 | Join (2 tables) | 1.2s | 3.5s |
 | Complex Analytics | 2.1s | 5.8s |
-
-## 🔮 Próximas Evoluções
-
-### **Curto Prazo (1-3 meses)**
-- Implementação de Delta Live Tables
-- Otimização automática com AI/ML
-- Integração com ferramentas de BI
-
-### **Médio Prazo (3-6 meses)**
-- Real-time streaming com Kafka
-- Machine Learning pipelines
-- Advanced analytics com MLflow
-
-### **Longo Prazo (6+ meses)**
-- Multi-cloud deployment
-- Advanced governance com Purview
-- Automated data discovery
