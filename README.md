@@ -12,7 +12,7 @@
 Pipeline de dados completo para transformação e análise do dataset NYC Yellow Taxi Trip Data, implementando uma arquitetura moderna de lakehouse com Databricks, Delta Lake e Unity Catalog.
 
 ### 🎯 **Objetivos Alcançados**
-- ✅ **Ingestão**: Dataset carregado para S3 (Bronze Layer)
+- ✅ **Ingestão**: Dataset carregado manualmente para S3 (Bronze Layer)
 - ✅ **Transformação**: Pipeline ETL com PySpark (Silver Layer)  
 - ✅ **Agregação**: Métricas analíticas otimizadas (Gold Layer)
 - ✅ **Warehouse**: Esquema estrela para consultas analíticas
@@ -55,8 +55,8 @@ Pipeline de dados completo para transformação e análise do dataset NYC Yellow
 ### **Pré-requisitos**
 - Conta AWS com acesso a S3 e IAM
 - Databricks Workspace (Premium/Enterprise)
-- Python 3.8+
-- Kaggle API configurada
+- Dataset NYC Taxi baixado do Kaggle
+- AWS CLI configurado
 
 ### **1. Configuração da Infraestrutura**
 ```bash
@@ -65,13 +65,29 @@ aws s3api create-bucket --bucket nyc-taxi-bronze-lucas --region us-west-2 --crea
 aws s3api create-bucket --bucket nyc-taxi-silver-lucas --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2
 aws s3api create-bucket --bucket nyc-taxi-gold-lucas --region us-west-2 --create-bucket-configuration LocationConstraint=us-west-2
 
+# Upload manual do dataset NYC Taxi para camada Bronze
+aws s3 cp yellow_tripdata_*.csv s3://nyc-taxi-bronze-lucas/raw/
+
 # Configurar Unity Catalog (ver docs/setup.md)
 ```
 
-### **2. Execução do Pipeline**
+### **2. Upload dos Dados (Camada Bronze)**
+```bash
+# Baixar dataset do Kaggle
+kaggle datasets download -d elemento/nyc-yellow-taxi-trip-data
+
+# Extrair arquivos CSV
+unzip nyc-yellow-taxi-trip-data.zip
+
+# Upload para S3 (camada Bronze)
+aws s3 cp yellow_tripdata_2015-01.csv s3://nyc-taxi-bronze-lucas/raw/
+aws s3 cp yellow_tripdata_2015-02.csv s3://nyc-taxi-bronze-lucas/raw/
+# ... continuar para todos os arquivos necessários
+```
+
+### **3. Execução do Pipeline**
 ```python
 # 1. Executar notebooks na ordem:
-notebooks/01_bronze_ingestion.py
 notebooks/02_bronze_to_silver_etl.py  
 notebooks/03_silver_to_gold_aggregation.py
 notebooks/04_sql_warehouse_setup.py
@@ -91,10 +107,12 @@ nyc-taxi-pipeline/
 │   ├── data-modeling.md         # Modelagem de dados
 │   └── performance.md           # Otimizações aplicadas
 ├── notebooks/
-│   ├── 01_bronze_ingestion.py
+│   ├── 00_setup_and_configuration.py
 │   ├── 02_bronze_to_silver_etl.py
 │   ├── 03_silver_to_gold_aggregation.py
-│   └── 04_sql_warehouse_setup.py
+│   ├── 04_sql_warehouse_setup.py
+│   ├── 05_databricks_workflows_orchestration.py
+│   └── 06_data_visualization_dashboard.py
 ├── workflows/
 │   └── nyc_taxi_pipeline.json   # Definição do workflow
 ├── sql/
@@ -118,7 +136,7 @@ nyc-taxi-pipeline/
 - **Coordenadas NYC**: 98.19% dentro dos limites geográficos
 
 ### **Performance do Pipeline**
-- **Ingestão Bronze**: ~5 minutos para dataset completo
+- **Upload Manual Bronze**: Dataset carregado via AWS CLI
 - **Transformação Silver**: ~15 minutos (46M registros)
 - **Agregação Gold**: ~8 minutos (541K métricas)
 - **Consultas Analíticas**: <1 segundo (média)
@@ -129,6 +147,13 @@ nyc-taxi-pipeline/
 - **Valor Médio**: $15.57 por viagem
 - **Duração Média**: 14.5 minutos
 - **Distância Média**: 3.33 km
+
+### **📊 Visualizações e Dashboards**
+- **Gráficos de Barras**: Receita por tipo de pagamento, distribuição horária
+- **Métricas Executivas**: KPIs consolidados interativos
+- **Análise Geográfica**: Top 10 regiões por volume de viagens
+- **Tendências Temporais**: Padrões mensais e sazonalidade
+- **Performance Analytics**: Dashboards no Databricks SQL
 
 ## 🔒 Segurança e Governança
 
