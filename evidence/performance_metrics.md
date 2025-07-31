@@ -41,7 +41,7 @@
 - Input: 47.2M registros Bronze (CSV)
 - Output: 46.4M registros Silver (Delta Lake)
 - Taxa de Retenção: 98.17%
-- Tempo: ~15 minutos
+- Tempo: ~7 minutos
 - Throughput: 51K registros/segundo
 - Transformações: 15+ campos processados
 - Recursos: Cluster 4 workers i3.xlarge
@@ -53,7 +53,7 @@
 - Input: 46.4M registros Silver
 - Output: 541K métricas horárias + 122 métricas diárias
 - Agregações: 3 tabelas Gold criadas
-- Tempo: ~8 minutos
+- Tempo: ~2 minutos
 - Throughput: 1.1K agregações/segundo
 - Recursos: Cluster 3 workers i3.xlarge
 ```
@@ -64,7 +64,7 @@
 - Input: 46.4M registros Silver
 - Output: Esquema estrela completo
 - Tabelas: 1 fato + 3 dimensões + 2 views
-- Tempo: ~12 minutos
+- Tempo: ~4 minutos
 - Throughput: 64K registros/segundo
 - Recursos: Cluster 3 workers i3.xlarge
 ```
